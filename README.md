@@ -9,7 +9,7 @@ Instead, I will be designing my CPU, instruction set and architecture. It will
 attempt to mimic the MIX style as much as possible. No, I will not use MMIX
 because I am stupid.
 
-## Cpu
+## CPU
 
 - `Byte`: 8-bits. Dead simple.
-- `Word`: :
+- `Word`: 4 bytes, leading bit is sign bit.

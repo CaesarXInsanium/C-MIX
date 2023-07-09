@@ -8,8 +8,8 @@ project(
     'buildtype=debug',
     'debug=true',
     #'optimization=3',
-    'c_std=gnu2x'
-  ]
+    'c_std=c2x',
+  ],
 )
 
 cmix_include = include_directories('include')
