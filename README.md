@@ -11,5 +11,13 @@ because I am stupid.
 
 ## CPU
 
+Big Endian Design
+
+- `Opt`: 4 bits, Opt Code or section of code
 - `Byte`: 8-bits. Dead simple.
 - `Word`: 4 bytes, leading bit is sign bit.
+
+## Instruction Codes
+
+- 0x10: LDA
+- 0x0f: LDX

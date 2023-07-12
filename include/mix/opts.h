@@ -1,9 +1,11 @@
 #ifndef MIX_OPT_H
 #define MIX_OPT_H
 
+#include <stdint.h>
+
 // will use up 8 bits
-typedef enum {
-  MIX_OPT_LDA = 16,
-  MIX_OPT_LDAX = 15,
-} MixOPT;
+uint8_t MIX_OPT_LDA = 0x10;
+uint8_t MIX_OPT_LDX = 0x0f;
+
+
 #endif
