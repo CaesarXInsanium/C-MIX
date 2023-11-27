@@ -4,8 +4,8 @@
 #include <stdint.h>
 
 // will use up 8 bits
-uint8_t MIX_OPT_LDA = 0x10;
-uint8_t MIX_OPT_LDX = 0x0f;
+const uint8_t MIX_OPT_LDA = 16;
+const uint8_t MIX_OPT_LDX = 15;
 
 
 #endif

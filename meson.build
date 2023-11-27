@@ -15,7 +15,8 @@ project(
 cmix_include = include_directories('include')
 
 libmix_src = [
-  'mix/src/version.c'
+  'mix/src/version.c',
+  'mix/src/cpu.c',
 ]
 
 libmix = shared_library(

@@ -3,53 +3,18 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include "mix/byte.h"
 
 #define MAX_MEMORY_SIZE 4000
 
-// I love bit fields
-typedef struct {
-  unsigned int sign : 1;
-  unsigned int parity : 1;
-  unsigned int a : 6;
-  unsigned int b : 6;
-  unsigned int c : 6;
-  unsigned int d : 6;
-  unsigned int e : 6;
-} Word;
-
-// 64 bit architecture for cpu
-// one byte served as sign
-// other seven are unreserved
-typedef uint16_t word;
-typedef uint8_t byte;
-
-struct _word {
-  uint8_t a;
-  uint8_t b;
-};
-
-#define BYTE_POINTER(x) ((byte *)&x)
-
-// big endian, get higher level opt from byte
-// 0101 0101
-#define OPT_HIGH(x) (x >> 4)
-uint8_t opt_high(uint16_t x) {
-  uint16_t g = x;
-  uint8_t *h = BYTE_POINTER(g);
-  return h[0];
-}
-uint8_t opt_low(uint16_t x) {
-  uint16_t g = x;
-  uint8_t *h = (uint8_t *)&g;
-  return h[1];
-}
-#define OPT_LOW(x) ((x << 4) >> 4)
 
 typedef union {
-  struct _word word;
-  word full;
+  uint32_t ints;
+  Word word;
 } Wordu;
+
 typedef enum {
   CMP_IND_E,
   CMP_IND_L,
@@ -57,15 +22,33 @@ typedef enum {
 } CmpInd;
 
 typedef struct {
+
+  // flags
+  CmpInd condition_flag:7;
+  unsigned int overflow_flag: 1;
+
   // general purpose registers
 
-  uint32_t rj; // jump address
-  word ra;
-  word rx;
-  uint8_t ri[16];
-  CmpInd condition_flag;
-  bool overflow_flag;
-  uint8_t memory[MAX_MEMORY_SIZE];
+  Word rj; // jump address
+  Word ra;
+  Word rx;
+  Pair ri[16];
+  
+  //io stuff
+  Pair ui[20];
+
+
+  // pointer to memory
+  Word *memory;
 } MixCpu;
+
+void process_instruction(MixCpu *cpu, Word word);
+
+void init_cpu(MixCpu *cpu);
+void cpu_memory(MixCpu *cpu, Word *mem);
+void fetch_ins(MixCpu *cpu);
+void execute(MixCpu *cpu);
+void cycle(MixCpu *cpu);
+void run(MixCpu *cpu);
 
 #endif
